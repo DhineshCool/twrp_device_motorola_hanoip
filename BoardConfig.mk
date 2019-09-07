@@ -92,6 +92,9 @@ BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 
 TARGET_KERNEL_SOURCE := kernel/motorola/sm6150
 TARGET_KERNEL_CONFIG := vendor/hanoip_defconfig
+TARGET_KERNEL_ADDITIONAL_FLAGS += \
+    DTC=$(shell pwd)/prebuilts/misc/$(HOST_OS)-x86/dtc/dtc \
+    MKDTIMG=$(shell pwd)/prebuilts/misc/$(HOST_OS)-x86/libufdt/mkdtimg
 
 BOARD_KERNEL_IMAGE_NAME := Image.gz
 # TARGET_PREBUILT_DTB := $(PLATFORM_PATH)/prebuilt/dtb.img
