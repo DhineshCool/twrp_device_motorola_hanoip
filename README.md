@@ -33,9 +33,7 @@ First repo init the twrp-11 tree (and necessary qcom dependencies):
 ```
 mkdir ~/android/twrp-11
 cd ~/android/twrp-11
-repo init -u git://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11
-mkdir -p .repo/local_manifests
-curl https://raw.githubusercontent.com/TeamWin/buildtree_manifests/master/min-aosp-11/qcom.xml > .repo/local_manifests/qcom.xml
+repo init -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-11
 ```
 
 Then add to a local manifest (if you don't have .repo/local_manifest then make that directory and make a blank file and name it something like twrp.xml):
@@ -47,13 +45,17 @@ Then add to a local manifest (if you don't have .repo/local_manifest then make t
 </manifest>
 ```
 
-Now you can sync your source:
+### Build with TWRP installer
 
-```
-repo sync
+To automatically make the twrp installer, you need to import this commit in the build/make path:
+```sh
+https://gerrit.twrp.me/c/android_build/+/4964
 ```
 
-To automatically make the TWRP installer zip, you need to import this commit in the build/make path: https://gerrit.twrp.me/c/android_build/+/4964
+Then add @osm0sis' standard twrp_abtemplate repo to a local manifest as indicated below (followed by another `repo sync` to download the repo):
+```xml
+<project name="osm0sis/twrp_abtemplate" path="bootable/recovery/installer" remote="github" revision="master"/>
+```
 
 Finally execute these:
 
