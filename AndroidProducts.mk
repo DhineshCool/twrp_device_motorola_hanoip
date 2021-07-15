@@ -15,9 +15,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_liber.mk
+    $(LOCAL_DIR)/omni_odessa.mk
 
 COMMON_LUNCH_CHOICES := \
-    omni_liber-user \
-    omni_liber-userdebug \
-    omni_liber-eng
+    omni_odessa-user \
+    omni_odessa-userdebug \
+    omni_odessa-eng
