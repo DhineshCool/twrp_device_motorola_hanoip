@@ -15,16 +15,16 @@
 #
 
 # Release name
-PRODUCT_RELEASE_NAME := odessa
+PRODUCT_RELEASE_NAME := hanoip
 
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := odessa
+PRODUCT_DEVICE := hanoip
 PRODUCT_NAME := omni_$(PRODUCT_DEVICE)
 PRODUCT_BRAND := motorola
-PRODUCT_MODEL := moto g(9) plus
+PRODUCT_MODEL := moto g(G40/60)
 PRODUCT_MANUFACTURER := motorola
 
 # Inherit from hardware-specific part of the product configuration

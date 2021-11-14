@@ -23,7 +23,7 @@
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
 
-PLATFORM_PATH := device/motorola/odessa
+PLATFORM_PATH := device/motorola/hanoip
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := sm6150
@@ -89,7 +89,7 @@ BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 
 TARGET_KERNEL_SOURCE := kernel/motorola/sm6150
-TARGET_KERNEL_CONFIG := vendor/odessa_defconfig
+TARGET_KERNEL_CONFIG := vendor/hanoip_defconfig
 
 BOARD_KERNEL_IMAGE_NAME := Image.gz
 # TARGET_PREBUILT_DTB := $(PLATFORM_PATH)/prebuilt/dtb.img

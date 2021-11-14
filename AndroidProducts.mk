@@ -15,9 +15,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_odessa.mk
+    $(LOCAL_DIR)/omni_hanoip.mk
 
 COMMON_LUNCH_CHOICES := \
-    omni_odessa-user \
-    omni_odessa-userdebug \
-    omni_odessa-eng
+    omni_hanoip-user \
+    omni_hanoip-userdebug \
+    omni_hanoip-eng
