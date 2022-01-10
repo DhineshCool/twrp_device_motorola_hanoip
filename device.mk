@@ -19,7 +19,7 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
 # define hardware platform
-PRODUCT_PLATFORM := sm7150
+PRODUCT_PLATFORM := sm6150
 PLATFORM_PATH := device/motorola/hanoip
 
 # A/B support
@@ -37,15 +37,8 @@ AB_OTA_PARTITIONS += \
     vendor \
     vbmeta \
     vbmeta_system \
-    vendor_boot 
+    vendor_boot
 
-
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/fstab.qcom:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qcom
-
-PRODUCT_COPY_FILES += device/motorola/hanoip/fstab.qcom:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.qcom
-
-	
 PRODUCT_COPY_FILES += \
     $(PLATFORM_PATH)/recovery/root/vendor/lib/modules/1.1/aw8646.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/1.1/aw8646.ko \
     $(PLATFORM_PATH)/recovery/root/vendor/lib/modules/1.1/ilitek_v3_mmi.ko:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib/modules/1.1/ilitek_v3_mmi.ko \
@@ -106,5 +99,9 @@ PRODUCT_SYSTEM_PROPERTY_BLACKLIST += \
     ro.bootimage.build.date.utc \
     ro.build.date.utc
 
+# Apex libraries
+PRODUCT_COPY_FILES += \
+    $(OUT_DIR)/target/product/$(PRODUCT_RELEASE_NAME)/obj/SHARED_LIBRARIES/libandroidicu_intermediates/libandroidicu.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libandroidicu.so
+
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.build.security_patch=2021-09-01
+    ro.vendor.build.security_patch=2099-12-31
