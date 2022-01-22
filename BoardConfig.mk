@@ -101,7 +101,7 @@ BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_BOOT_HEADER_VERSION := 3
 BOARD_KERNEL_PAGESIZE := 4096
 
-BOARD_KERNEL_BASE        := 0x00000000
+BOARD_KERNEL_BASE          := 0x00000000
 BOARD_KERNEL_TAGS_OFFSET   := 0x00000100
 BOARD_KERNEL_OFFSET        := 0x00008000
 BOARD_RAMDISK_OFFSET       := 0x01000000
@@ -146,8 +146,8 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 115921629184
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
-
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 
 # Workaround for error copying vendor files to recovery ramdisk
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -232,29 +232,27 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     ashmemd \
     ashmemd_aidl_interface-cpp \
     bootctrl.$(TARGET_BOARD_PLATFORM).recovery \
+    debuggerd \
     libashmemd_client \
     libcap \
-#    libicui18n \
-    libicuuc \
     libion \
     libpcrecpp \
-    libprocinfo \
     libxml2
 
 TW_RECOVERY_ADDITIONAL_RELINK_BINARY_FILES += \
     $(TARGET_OUT_EXECUTABLES)/ashmemd \
     $(TARGET_OUT_EXECUTABLES)/strace
 
+TW_RECOVERY_ADDITIONAL_RELINK_FILES += \
+    $(TARGET_OUT_EXECUTABLES)/debuggerd
+
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/android.hidl.base@1.0.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/ashmemd_aidl_interface-cpp.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libashmemd_client.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libcap.so \
-#    $(TARGET_OUT_SHARED_LIBRARIES)/libicui18n.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libicuuc.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libpcrecpp.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libprocinfo.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so
 
 # Encryption
