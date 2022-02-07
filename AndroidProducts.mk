@@ -6,9 +6,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_hanoip.mk
+    $(LOCAL_DIR)/twrp_hanoip.mk
 
 COMMON_LUNCH_CHOICES := \
-    omni_hanoip-user \
-    omni_hanoip-userdebug \
-    omni_hanoip-eng
+    twrp_hanoip-user \
+    twrp_hanoip-userdebug \
+    twrp_hanoip-eng

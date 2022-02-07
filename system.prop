@@ -1,0 +1,6 @@
+ro.product.model=moto g(60) fusion
+ro.board.platform=sm6150
+ro.adb.secure=0
+
+#VNDK
+ro.product.vndk.version=30
