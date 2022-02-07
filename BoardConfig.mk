@@ -126,8 +126,6 @@ TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 USE_RECOVERY_INSTALLER := true
 RECOVERY_INSTALLER_PATH := bootable/recovery/installer
 
-# TWRP Configuration
-TW_LOAD_VENDOR_MODULES := "FW_ILITEK_TDDI_TM.bin ilitek_v3_mmi.ko exfat.ko fpc1020_mmi.ko mmi_annotate.ko mmi_info.ko mmi_sys_temp.ko moto_f_usbnet.ko mpq-adapter.ko qpnp_adaptive_charge.ko sensors_class.ko utags.ko"
 # AVB
 BOARD_AVB_ENABLE := true
 BOARD_AVB_VBMETA_SYSTEM := system
@@ -168,6 +166,7 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 TARGET_USES_MKE2FS := true
 
 # TWRP specific build flags
+TW_LOAD_VENDOR_MODULES := "FW_ILITEK_TDDI_TM.bin ilitek_v3_mmi.ko exfat.ko fpc1020_mmi.ko mmi_annotate.ko mmi_info.ko mmi_sys_temp.ko moto_f_usbnet.ko mpq-adapter.ko qpnp_adaptive_charge.ko sensors_class.ko utags.ko"
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file
