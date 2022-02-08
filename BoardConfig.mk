@@ -159,7 +159,9 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     libandroidicu \
     libcap \
     libion \
-    libxml2
+    libxml2 \
+    vendor.display.config@2.0 \
+    libdisplayconfig.qti
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 
 # Use mke2fs to create ext4 images
