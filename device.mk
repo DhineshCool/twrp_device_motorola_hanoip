@@ -75,10 +75,13 @@ PRODUCT_SHIPPING_API_LEVEL := 30
 # vendor and odm and we also dont want to AB update them
 TARGET_ENFORCE_AB_OTA_PARTITION_LIST := true
 
-# Boot control HAL
+# Boot control
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.1-impl-qti.recovery \
-    bootctrl.$(PRODUCT_PLATFORM).recovery \
+    android.hardware.boot@1.0-impl:64 \
+    android.hardware.boot@1.0-service \
+    android.hardware.boot@1.0-impl.recovery \
+    bootctrl.qcom \
+    bootctrl.qcom.recovery
 
 # Dynamic partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true

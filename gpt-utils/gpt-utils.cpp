@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013,2016,2020 The Linux Foundation. All rights reserved.
+ * Copyright (c) 2013,2016, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -37,10 +37,15 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <sys/ioctl.h>
+#ifndef _GENERIC_KERNEL_HEADERS
+#include <scsi/ufs/ioctl.h>
+#include <scsi/ufs/ufs.h>
+#endif
 #include <unistd.h>
 #include <linux/fs.h>
 #include <limits.h>
 #include <dirent.h>
+#include <inttypes.h>
 #include <linux/kernel.h>
 #include <map>
 #include <vector>
@@ -72,6 +77,8 @@
 #define XBL_AB_SECONDARY    "/dev/block/bootdevice/by-name/xbl_b"
 /* GPT defines */
 #define MAX_LUNS                    26
+//Size of the buffer that needs to be passed to the UFS ioctl
+#define UFS_ATTR_DATA_SIZE          32
 //This will allow us to get the root lun path from the path to the partition.
 //i.e: from /dev/block/sdaXXX get /dev/block/sda. The assumption here is that
 //the boot critical luns lie between sda to sdz which is acceptable because
@@ -123,7 +130,6 @@ struct update_data {
      uint32_t num_valid_entries;
 };
 
-int32_t set_boot_lun(char *sg_dev,uint8_t boot_lun_id);
 /******************************************************************************
  * FUNCTIONS
  ******************************************************************************/
@@ -607,7 +613,53 @@ error:
         return -1;
 }
 
+int set_boot_lun(char *sg_dev, uint8_t boot_lun_id)
+{
+#ifndef _GENERIC_KERNEL_HEADERS
+        int fd = -1;
+        int rc;
+        struct ufs_ioctl_query_data *data = NULL;
+        size_t ioctl_data_size = sizeof(struct ufs_ioctl_query_data) + UFS_ATTR_DATA_SIZE;
 
+        data = (struct ufs_ioctl_query_data*)malloc(ioctl_data_size);
+        if (!data) {
+                fprintf(stderr, "%s: Failed to alloc query data struct\n",
+                                __func__);
+                goto error;
+        }
+        memset(data, 0, ioctl_data_size);
+        data->opcode = UPIU_QUERY_OPCODE_WRITE_ATTR;
+        data->idn = QUERY_ATTR_IDN_BOOT_LU_EN;
+        data->buf_size = UFS_ATTR_DATA_SIZE;
+        data->buffer[0] = boot_lun_id;
+        fd = open(sg_dev, O_RDWR);
+        if (fd < 0) {
+                fprintf(stderr, "%s: Failed to open %s(%s)\n",
+                                __func__,
+                                sg_dev,
+                                strerror(errno));
+                goto error;
+        }
+        rc = ioctl(fd, UFS_IOCTL_QUERY, data);
+        if (rc) {
+                fprintf(stderr, "%s: UFS query ioctl failed(%s)\n",
+                                __func__,
+                                strerror(errno));
+                goto error;
+        }
+        close(fd);
+        free(data);
+        return 0;
+error:
+        if (fd >= 0)
+                close(fd);
+        if (data)
+                free(data);
+        return -1;
+#else
+	return 0;
+#endif
+}
 
 //Swtich betwieen using either the primary or the backup
 //boot LUN for boot. This is required since UFS boot partitions
@@ -681,7 +733,6 @@ int gpt_utils_set_xbl_boot_partition(enum boot_chain chain)
                                 __func__);
                 goto error;
         }
-        /* set boot lun using /dev/sg or /dev/ufs-bsg* */
         if (set_boot_lun(sg_dev_node, boot_lun_id)) {
                 fprintf(stderr, "%s: Failed to set xblbak as boot partition\n",
                                 __func__);
@@ -1127,6 +1178,7 @@ static int gpt_set_header(uint8_t *gpt_header, int fd,
                 goto error;
         }
         block_size = gpt_get_block_size(fd);
+        ALOGI("%s: Block size is : %d", __func__, block_size);
         if (block_size == 0) {
                 ALOGE("%s: Failed to get block size", __func__);
                 goto error;
@@ -1139,6 +1191,8 @@ static int gpt_set_header(uint8_t *gpt_header, int fd,
                 ALOGE("%s: Failed to get gpt header offset",__func__);
                 goto error;
         }
+        ALOGI("%s: Writing back header to offset %" PRIi64, __func__,
+                gpt_header_offset);
         if (blk_rw(fd, 1, gpt_header_offset, gpt_header, block_size)) {
                 ALOGE("%s: Failed to write back GPT header", __func__);
                 goto error;
@@ -1283,10 +1337,15 @@ static int gpt_set_pentry_arr(uint8_t *hdr, int fd, uint8_t* arr)
                                 __func__);
                 goto error;
         }
+        ALOGI("%s : Block size is %d", __func__, block_size);
         pentries_start = GET_8_BYTES(hdr + PENTRIES_OFFSET) * block_size;
         pentry_size = GET_4_BYTES(hdr + PENTRY_SIZE_OFFSET);
         pentries_arr_size =
                 GET_4_BYTES(hdr + PARTITION_COUNT_OFFSET) * pentry_size;
+        ALOGI("%s: Writing partition entry array of size %d to offset %" PRIu64,
+                        __func__,
+                        pentries_arr_size,
+                        pentries_start);
         rc = blk_rw(fd, 1,
                         pentries_start,
                         arr,
@@ -1486,12 +1545,14 @@ int gpt_disk_commit(struct gpt_disk *disk)
                                 strerror(errno));
                 goto error;
         }
+        ALOGI("%s: Writing back primary GPT header", __func__);
         //Write the primary header
         if(gpt_set_header(disk->hdr, fd, PRIMARY_GPT) != 0) {
                 ALOGE("%s: Failed to update primary GPT header",
                                 __func__);
                 goto error;
         }
+        ALOGI("%s: Writing back primary partition array", __func__);
         //Write back the primary partition array
         if (gpt_set_pentry_arr(disk->hdr, fd, disk->pentry_arr)) {
                 ALOGE("%s: Failed to write primary GPT partition arr",
