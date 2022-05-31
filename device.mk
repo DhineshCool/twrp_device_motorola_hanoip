@@ -53,7 +53,8 @@ AB_OTA_PARTITIONS += \
     system_ext \
     vbmeta \
     vbmeta_system \
-    vendor
+    vendor \
+    vendor_boot
 
 PRODUCT_PACKAGES += \
     otapreopt_script \
