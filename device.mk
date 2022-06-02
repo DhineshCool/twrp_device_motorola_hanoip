@@ -77,9 +77,11 @@ PRODUCT_SHIPPING_API_LEVEL := 30
 TARGET_ENFORCE_AB_OTA_PARTITION_LIST := true
 
 # Boot control HAL
+# Boot control
 PRODUCT_PACKAGES += \
+    android.hardware.boot@1.1-impl-qti \
     android.hardware.boot@1.1-impl-qti.recovery \
-    bootctrl.$(PRODUCT_PLATFORM).recovery \
+    android.hardware.boot@1.1-service
 
 # Dynamic partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
