@@ -37,6 +37,9 @@ AB_OTA_UPDATER := true
 # VNDK
 PRODUCT_TARGET_VNDK_VERSION := 30
 
+# Prebuilt headers
+PRODUCT_VENDOR_KERNEL_HEADERS := $(LOCAL_PATH)/kernel-headers
+
 # A/B
 ENABLE_VIRTUAL_AB := true
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
@@ -105,6 +108,3 @@ PRODUCT_SOONG_NAMESPACES += \
 # OEM otacert
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(LOCAL_PATH)/security/ota
-
-# Prebuilt headers
-PRODUCT_VENDOR_KERNEL_HEADERS := kernel/motorola/kernel-headers
