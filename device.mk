@@ -105,3 +105,6 @@ PRODUCT_SOONG_NAMESPACES += \
 # OEM otacert
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     $(LOCAL_PATH)/security/ota
+
+# Prebuilt headers
+PRODUCT_VENDOR_KERNEL_HEADERS := kernel/motorola/kernel-headers
