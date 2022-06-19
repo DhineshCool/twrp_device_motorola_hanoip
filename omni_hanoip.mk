@@ -15,11 +15,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, device/motorola/hanoip/device.mk)
 
 # Inherit some common TWRP stuff.
-$(call inherit-product, vendor/twrp/config/common.mk)
+$(call inherit-product, vendor/pb/config/common.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := hanoip
-PRODUCT_NAME := twrp_hanoip
+PRODUCT_NAME := omni_hanoip
 PRODUCT_BRAND := motorola
 PRODUCT_MODEL := moto g(60)
 PRODUCT_MANUFACTURER := motorola
