@@ -20,16 +20,24 @@ insmod $module_path/mmi_sys_temp.ko
 insmod $module_path/mpq-adapter.ko
 insmod $module_path/sensors_class.ko
 insmod $module_path/utags.ko
-
+insmod $module_path/snd_smartpa_aw882xx.ko
+insmod $module_path/fpsensor_spi_tee.ko
+insmod $module_path/tzlog_dump.ko
+insmod $module_path/mpq-dmx-hw-plugin.ko
+insmod $module_path/rdbg.ko
+insmod $module_path/watchdog_cpu_ctx.ko
+insmod $module_path/watchdogtest.ko
+insmod $module_path/qca_cld3_wlan.ko
 cd $firmware_path
 touch_product_string=$(ls $touch_class_path)
 echo "ilitek"
 firmware_file="FW_ILITEK_TDDI_TM.bin"
 touch_path=/sys$(cat $touch_class_path/$touch_product_string/path | awk '{print $1}')
-wait_for_poweron
-echo $firmware_file > $touch_path/doreflash
+echo "forcing firmware upgrade"
 echo 1 > $touch_path/forcereflash
-sleep 5
-echo 1 > $touch_path/reset
+echo "sending reflash command"
+echo $firmware_file > $touch_path/doreflash
+sleep 1.5
+setprop touch.fw.loaded 1
 
 exit 0
