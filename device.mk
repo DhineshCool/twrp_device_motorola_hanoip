@@ -34,9 +34,6 @@ LOCAL_PATH := device/motorola/hanoip
 # A/B support
 AB_OTA_UPDATER := true
 
-# VNDK
-PRODUCT_TARGET_VNDK_VERSION := 30
-
 # Prebuilt headers
 PRODUCT_VENDOR_KERNEL_HEADERS := $(LOCAL_PATH)/kernel-headers
 
@@ -70,6 +67,9 @@ AB_OTA_POSTINSTALL_CONFIG += \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
+
+# VNDK
+PRODUCT_TARGET_VNDK_VERSION := 30
 
 # API
 PRODUCT_SHIPPING_API_LEVEL := 30
