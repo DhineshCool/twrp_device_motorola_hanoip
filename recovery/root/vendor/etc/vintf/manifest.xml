@@ -27,6 +27,8 @@
             <name>IBootControl</name>
             <instance>default</instance>
         </interface>
+        <fqname>@1.0::IBootControl/default</fqname>
+        <fqname>@1.1::IBootControl/default</fqname>
         <fqname>@1.2::IBootControl/default</fqname>
     </hal>
 </manifest>

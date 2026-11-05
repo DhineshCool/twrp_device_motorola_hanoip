@@ -8,4 +8,10 @@ recovery_only(`
   allow recovery kmsg_device:chr_file rw_file_perms;
   allow recovery sysfs_devices_block:dir { open read search };
   allow recovery sysfs_devices_block:file rw_file_perms;
+  allow recovery firmware_file:dir { open read search };
+  allow recovery firmware_file:file { open read getattr };
+  allow recovery fsg_firmware_file:dir { open read search };
+  allow recovery fsg_firmware_file:file { open read getattr };
+  allow recovery bt_firmware_file:dir { open read search };
+  allow recovery bt_firmware_file:file { open read getattr };
 ')

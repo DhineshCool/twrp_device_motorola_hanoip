@@ -18,7 +18,7 @@ fi
 
 wait_for_poweron()
 {
-	local wait_nomore=60
+	local wait_nomore=10
 	local count=0
 	while true; do
 		readiness=$(cat $touch_path/poweron 2>/dev/null)

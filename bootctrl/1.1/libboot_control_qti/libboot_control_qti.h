@@ -49,4 +49,5 @@ const char* get_suffix(unsigned slot);
 bool set_snapshot_merge_status(MergeStatus status);
 MergeStatus get_snapshot_merge_status();
 
-bool mGvmqPlatform = false;
+// IBootControl 1.2 methods
+int get_active_boot_slot();

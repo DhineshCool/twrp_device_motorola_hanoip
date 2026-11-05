@@ -33,15 +33,21 @@ on init
 on boot
     start runatboot
     start health-hal-2-1
+    start vendor.health-recovery
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    symlink /vendor/firmware_mnt /firmware
+    symlink /vendor/bt_firmware /bt_firmware
+    symlink /vendor/dsp /dsp
     export LD_LIBRARY_PATH /sbin:/vendor/lib64:/vendor/lib64/hw
     setprop ro.board.platform sm6150
 
 on post-fs
     start boot-hal-1-2
+
+on post-fs && property:init.svc.boot-hal-1-2=stopped
     start boot-hal-1-1
 
 on property:ro.crypto.type=file
