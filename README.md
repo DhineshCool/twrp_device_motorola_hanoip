@@ -58,7 +58,7 @@ Finally execute these:
 export ALLOW_MISSING_DEPENDENCIES=true
 export LC_ALL=C
 lunch twrp_hanoip-eng
-make adbd vendorbootimage
+make adbd bootimage
 ```
 
 ### Copyright

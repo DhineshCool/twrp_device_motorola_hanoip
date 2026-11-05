@@ -3,11 +3,13 @@
 # Run TouchScreen Patch For Stock Users
 
 path=/sbin
-mount /vendor
-cp -r /vendor/lib/modules $path
-cp -r /vendor/firmware $path
-umount /vendor
+mkdir -p $path
+if [ -d /vendor/lib/modules ]; then
+    cp -r /vendor/lib/modules $path/
+fi
+if [ -d /vendor/firmware ]; then
+    cp -r /vendor/firmware $path/
+fi
 /system/bin/sh /system/bin/hanoip_touch.sh 2> $path/TouchScreenlog.txt
-/system/bin/sh /system/bin/hanoip_touch.sh 2>> $path/TouchScreenlog.txt
 
 exit 0

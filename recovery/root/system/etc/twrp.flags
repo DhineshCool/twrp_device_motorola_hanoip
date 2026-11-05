@@ -6,9 +6,8 @@
 /boot            emmc       /dev/block/bootdevice/by-name/boot                    flags=slotselect
 /dtbo            emmc       /dev/block/bootdevice/by-name/dtbo                    flags=backup=1;display="Dtbo";slotselect;flashimg=1
 /vbmeta          emmc       /dev/block/bootdevice/by-name/vbmeta                  flags=backup=1;display="VBMeta";slotselect;flashimg=1
-/vbmeta_system   emmc              /dev/block/bootdevice/by-name/vbmeta_system   flags=slotselect;backup=1;flashimg=1
-/vendor_boot     emmc              /dev/block/bootdevice/by-name/vendor_boot     flags=slotselect;backup=1;flashimg=1
-/data            f2fs       /dev/block/bootdevice/by-name/userdata                flags=fileencryption=ice:aes-256-cts
+/vbmeta_system   emmc       /dev/block/bootdevice/by-name/vbmeta_system           flags=slotselect;backup=1;flashimg=1
+/vendor_boot     emmc       /dev/block/bootdevice/by-name/vendor_boot             flags=slotselect;backup=1;flashimg=1
 /misc            emmc       /dev/block/bootdevice/by-name/misc
 /efs1            emmc       /dev/block/bootdevice/by-name/modemst1                flags=backup=1;display="EFS"
 /efs2            emmc       /dev/block/bootdevice/by-name/modemst2                flags=backup=1;subpartitionof=/efs1
@@ -30,14 +29,8 @@
 /external_sd     auto       /dev/block/mmcblk0p1    /dev/block/mmcblk0            flags=display="Micro SDcard";storage;wipeingui;removable
 /usb-otg         auto       /dev/block/sdg1         /dev/block/sdg                flags=display="USB OTG";storage;wipeingui;removable
 
-# Dynamic Partitions
-system           ext4       /system                                               display="System"
-system_ext       ext4       /system_ext                                           display="System_ext"
-vendor           ext4       /vendor                                               display="Vendor"
-product          ext4       /product                                              display="Product"
-
 # Flashable logical partitions
-/system_image    emmc       /dev/block/bootdevice/by-name/system                  flags=backup=1;display="System Image";flashimg=1
+/system_image        emmc   /dev/block/bootdevice/by-name/system                  flags=backup=1;display="System Image";flashimg=1
 /system_ext_image    emmc   /dev/block/bootdevice/by-name/system_ext              flags=backup=1;display="System_ext Image";flashimg=1
-/vendor_image    emmc       /dev/block/bootdevice/by-name/vendor                  flags=backup=1;display="Vendor Image";flashimg=1
-/product_image   emmc       /dev/block/bootdevice/by-name/product                 flags=backup=1;display="Product Image";flashimg=1
+/vendor_image        emmc   /dev/block/bootdevice/by-name/vendor                  flags=backup=1;display="Vendor Image";flashimg=1
+/product_image       emmc   /dev/block/bootdevice/by-name/product                 flags=backup=1;display="Product Image";flashimg=1

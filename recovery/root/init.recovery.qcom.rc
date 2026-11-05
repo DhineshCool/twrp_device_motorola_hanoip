@@ -27,6 +27,9 @@
 
 import /init.recovery.qcom_decrypt.rc
 
+on init
+    setprop sys.usb.configfs 1
+
 on boot
     start runatboot
     start health-hal-2-1
@@ -36,9 +39,9 @@ on fs
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
     export LD_LIBRARY_PATH /sbin:/vendor/lib64:/vendor/lib64/hw
     setprop ro.board.platform sm6150
-    start load_modules
 
 on post-fs
+    start boot-hal-1-2
     start boot-hal-1-1
 
 on property:ro.crypto.type=file

@@ -57,9 +57,15 @@ TARGET_ENFORCE_AB_OTA_PARTITION_LIST := true
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
+    android.hardware.boot@1.2-impl-qti \
+    android.hardware.boot@1.2-impl-qti.recovery \
+    android.hardware.boot@1.2-service \
     android.hardware.boot@1.1-impl-qti \
     android.hardware.boot@1.1-impl-qti.recovery \
     android.hardware.boot@1.1-service
+
+PRODUCT_PACKAGES_DEBUG += \
+    bootctl
 
 # Enable virtual A/B OTA
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
@@ -74,7 +80,8 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 # fastbootd
 PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl-mock \
-    fastbootd
+    fastbootd \
+    resetprop
 
 # qcom standard decryption
 PRODUCT_PACKAGES += \
@@ -84,6 +91,7 @@ PRODUCT_PACKAGES += \
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
+    hardware/qcom-caf/bootctrl \
     vendor/qcom/opensource/commonsys-intf/display
 
 # Prebuilt headers
@@ -93,10 +101,6 @@ PRODUCT_VENDOR_KERNEL_HEADERS := $(DEVICE_PATH)/kernel-headers
 PRODUCT_SYSTEM_PROPERTY_BLACKLIST += \
     ro.bootimage.build.date.utc \
     ro.build.date.utc
-
-# Apex libraries
-PRODUCT_COPY_FILES += \
-    $(OUT_DIR)/target/product/$(PRODUCT_RELEASE_NAME)/obj/SHARED_LIBRARIES/libandroidicu_intermediates/libandroidicu.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libandroidicu.so
 
 # OEM otacert
 PRODUCT_EXTRA_RECOVERY_KEYS += \
