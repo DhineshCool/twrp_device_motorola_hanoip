@@ -25,6 +25,9 @@
 /logo            emmc       /dev/block/bootdevice/by-name/logo                    flags=backup=1;display="Boot Logo";slotselect;flashimg=1
 /keymaster       emmc       /dev/block/bootdevice/by-name/keymaster               flags=slotselect
 
+# Userdata / Internal storage
+/data            f2fs       /dev/block/bootdevice/by-name/userdata                flags=display="Internal Storage";userdata;encryptable=footer;fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized+wrappedkey_v0;wrappedkey
+
 # Removable storage
 /external_sd     auto       /dev/block/mmcblk0p1    /dev/block/mmcblk0            flags=display="Micro SDcard";storage;wipeingui;removable
 /usb-otg         auto       /dev/block/sdg1         /dev/block/sdg                flags=display="USB OTG";storage;wipeingui;removable
