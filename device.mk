@@ -11,7 +11,8 @@ DEVICE_PATH := device/motorola/hanoip
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
 # Installs gsi keys into ramdisk, to boot a GSI with verified boot.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
+$(if $(wildcard $(SRC_TARGET_DIR)/product/gsi_keys.mk), \
+    $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk))
 
 # define hardware platform
 PRODUCT_PLATFORM := sm6150
@@ -68,7 +69,8 @@ PRODUCT_PACKAGES_DEBUG += \
     bootctl
 
 # Enable virtual A/B OTA
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
+$(if $(wildcard $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk), \
+    $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk))
 
 # Dynamic partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true

@@ -1,0 +1,2 @@
+add_lunch_combo twrp_hanoip-eng
+add_lunch_combo twrp_hanoip-userdebug
