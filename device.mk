@@ -60,7 +60,6 @@ TARGET_ENFORCE_AB_OTA_PARTITION_LIST := true
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-impl-qti \
     android.hardware.boot@1.2-impl-qti.recovery \
-    android.hardware.boot@1.2-service \
     android.hardware.boot@1.1-impl-qti \
     android.hardware.boot@1.1-impl-qti.recovery \
     android.hardware.boot@1.1-service
@@ -88,13 +87,7 @@ PRODUCT_PACKAGES += \
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH) \
-    hardware/qcom-caf/bootctrl \
-    vendor/qcom/opensource/commonsys-intf/display
-
-# Target libraries
-PRODUCT_PACKAGES += \
-    libandroidicu
+    $(LOCAL_PATH)
 
 # Prebuilt headers
 PRODUCT_VENDOR_KERNEL_HEADERS := $(DEVICE_PATH)/kernel-headers

@@ -152,8 +152,7 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     libion \
     libxml2 \
     vendor.display.config@1.0 \
-    vendor.display.config@2.0 \
-    libandroidicu
+    vendor.display.config@2.0
 
 # Use mke2fs to create ext4 images
 TARGET_USES_MKE2FS := true
